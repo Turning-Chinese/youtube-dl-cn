@@ -70,7 +70,7 @@ class DashSegmentsFD(FragmentFD):
                 if not fatal:
                     self.report_skip_fragment(frag_index)
                     continue
-                self.report_error('giving up after %s fragment retries' % count)
+                self.report_error('在%s碎片重试后放弃' % count)
                 return False
 
         self._finish_frag_download(ctx)

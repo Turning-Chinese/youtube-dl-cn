@@ -126,43 +126,43 @@ def parseOpts(overrideArguments=None):
 
     parser = optparse.OptionParser(**compat_kwargs(kw))
 
-    general = optparse.OptionGroup(parser, 'General Options')
+    general = optparse.OptionGroup(parser, '通用选项')
     general.add_option(
         '-h', '--help',
         action='help',
-        help='Print this help text and exit')
+        help='输出帮助文本')
     general.add_option(
         '--version',
         action='version',
-        help='Print program version and exit')
+        help='输出版本号')
     general.add_option(
         '-U', '--update',
         action='store_true', dest='update_self',
-        help='Update this program to latest version. Make sure that you have sufficient permissions (run with sudo if needed)')
+        help='将此程序更新到最新版。请确定你有足够的权限（若有需要，以sudo模式运行）')
     general.add_option(
         '-i', '--ignore-errors',
         action='store_true', dest='ignoreerrors', default=False,
-        help='Continue on download errors, for example to skip unavailable videos in a playlist')
+        help='出现下载错误时继续，例如跳过播放列表中不可用的视频')
     general.add_option(
         '--abort-on-error',
         action='store_false', dest='ignoreerrors',
-        help='Abort downloading of further videos (in the playlist or the command line) if an error occurs')
+        help='如果出现错误，则中止下载更多视频（在播放列表或命令行中）')
     general.add_option(
         '--dump-user-agent',
         action='store_true', dest='dump_user_agent', default=False,
-        help='Display the current browser identification')
+        help='显示当前浏览器标识')
     general.add_option(
         '--list-extractors',
         action='store_true', dest='list_extractors', default=False,
-        help='List all supported extractors')
+        help='列出所有支持的提取器')
     general.add_option(
         '--extractor-descriptions',
         action='store_true', dest='list_extractor_descriptions', default=False,
-        help='Output descriptions of all supported extractors')
+        help='所有支持的提取器的输出说明')
     general.add_option(
         '--force-generic-extractor',
         action='store_true', dest='force_generic_extractor', default=False,
-        help='Force extraction to use the generic extractor')
+        help='强制提取以使用通用提取器')
     general.add_option(
         '--default-search',
         dest='default_search', metavar='PREFIX',

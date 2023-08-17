@@ -236,10 +236,10 @@ class FileDownloader(object):
 
     def report_destination(self, filename):
         """Report destination filename."""
-        self.to_screen('[download] Destination: ' + filename)
+        self.to_screen('[下载] 目标: ' + filename)
 
     def _report_progress_status(self, msg, is_last_line=False):
-        fullmsg = '[download] ' + msg
+        fullmsg = '[下载] ' + msg
         if self.params.get('progress_with_newline', False):
             self.to_screen(fullmsg)
         else:
@@ -258,7 +258,7 @@ class FileDownloader(object):
     def report_progress(self, s):
         if s['status'] == 'finished':
             if self.params.get('noprogress', False):
-                self.to_screen('[download] Download completed')
+                self.to_screen('[下载] 下载完成')
             else:
                 msg_template = '100%%'
                 if s.get('total_bytes') is not None:
@@ -279,7 +279,7 @@ class FileDownloader(object):
         if s.get('eta') is not None:
             s['_eta_str'] = self.format_eta(s['eta'])
         else:
-            s['_eta_str'] = 'Unknown ETA'
+            s['_eta_str'] = '未知 ETA'
 
         if s.get('total_bytes') and s.get('downloaded_bytes') is not None:
             s['_percent_str'] = self.format_percent(100 * s['downloaded_bytes'] / s['total_bytes'])
@@ -289,12 +289,12 @@ class FileDownloader(object):
             if s.get('downloaded_bytes') == 0:
                 s['_percent_str'] = self.format_percent(0)
             else:
-                s['_percent_str'] = 'Unknown %'
+                s['_percent_str'] = '未知 %'
 
         if s.get('speed') is not None:
             s['_speed_str'] = self.format_speed(s['speed'])
         else:
-            s['_speed_str'] = 'Unknown speed'
+            s['_speed_str'] = '未知速度'
 
         if s.get('total_bytes') is not None:
             s['_total_bytes_str'] = format_bytes(s['total_bytes'])
@@ -317,24 +317,24 @@ class FileDownloader(object):
 
     def report_resuming_byte(self, resume_len):
         """Report attempt to resume at given byte."""
-        self.to_screen('[download] Resuming download at byte %s' % resume_len)
+        self.to_screen('[下载] 正在字节%s处恢复下载' % resume_len)
 
     def report_retry(self, err, count, retries):
         """Report retry in case of HTTP error 5xx"""
         self.to_screen(
-            '[download] Got server HTTP error: %s. Retrying (attempt %d of %s)...'
+            '[下载] HTTP服务器错误: %s. 重试 (尝试%d次,共%s次)...'
             % (error_to_compat_str(err), count, self.format_retries(retries)))
 
     def report_file_already_downloaded(self, file_name):
         """Report file has already been fully downloaded."""
         try:
-            self.to_screen('[download] %s has already been downloaded' % file_name)
+            self.to_screen('[下载] 已下载%s ' % file_name)
         except UnicodeEncodeError:
-            self.to_screen('[download] The file has already been downloaded')
+            self.to_screen('[下载] 文件已下载')
 
     def report_unable_to_resume(self):
         """Report it was impossible to resume download."""
-        self.to_screen('[download] Unable to resume')
+        self.to_screen('[下载] 无法恢复')
 
     def download(self, filename, info_dict):
         """Download to a filename using the info from info_dict
@@ -372,7 +372,7 @@ class FileDownloader(object):
             max_sleep_interval = self.params.get('max_sleep_interval', min_sleep_interval)
             sleep_interval = random.uniform(min_sleep_interval, max_sleep_interval)
             self.to_screen(
-                '[download] Sleeping %s seconds...' % (
+                '[下载] 睡眠 %s 秒...' % (
                     int(sleep_interval) if sleep_interval.is_integer()
                     else '%.2f' % sleep_interval))
             time.sleep(sleep_interval)

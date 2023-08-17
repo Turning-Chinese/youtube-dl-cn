@@ -45,14 +45,14 @@ class ExternalFD(FileDownloader):
             # correct and expected termination thus all postprocessing
             # should take place
             retval = 0
-            self.to_screen('[%s] Interrupted by user' % self.get_basename())
+            self.to_screen('[%s] 已被用户中断' % self.get_basename())
         finally:
             if self._cookies_tempfile and os.path.isfile(self._cookies_tempfile):
                 try:
                     os.remove(self._cookies_tempfile)
                 except OSError:
                     self.report_warning(
-                        'Unable to delete temporary cookies file "{0}"'.format(self._cookies_tempfile))
+                        '无法删除临时cookie文件 "{0}"'.format(self._cookies_tempfile))
 
         if retval == 0:
             status = {
@@ -62,7 +62,7 @@ class ExternalFD(FileDownloader):
             }
             if filename != '-':
                 fsize = os.path.getsize(encodeFilename(tmpfilename))
-                self.to_screen('\r[%s] Downloaded %s bytes' % (self.get_basename(), fsize))
+                self.to_screen('\r[%s] 已下载 %s 字节' % (self.get_basename(), fsize))
                 self.try_rename(tmpfilename, filename)
                 status.update({
                     'downloaded_bytes': fsize,
@@ -72,7 +72,7 @@ class ExternalFD(FileDownloader):
             return True
         else:
             self.to_stderr('\n')
-            self.report_error('%s exited with code %d' % (
+            self.report_error('%s已退出，代码为%d' % (
                 self.get_basename(), retval))
             return False
 
@@ -113,7 +113,7 @@ class ExternalFD(FileDownloader):
             tmp_cookies = tempfile.NamedTemporaryFile(suffix='.cookies', delete=False)
             tmp_cookies.close()
             self._cookies_tempfile = tmp_cookies.name
-            self.to_screen('[download] Writing temporary cookies file to "{0}"'.format(self._cookies_tempfile))
+            self.to_screen('[下载] 正在将临时Cookie文件写入"{0}"'.format(self._cookies_tempfile))
         # real_download resets _cookies_tempfile; if it's None, save() will write to cookiejar.filename
         self.ydl.cookiejar.save(self._cookies_tempfile, ignore_discard=True, ignore_expires=True)
         return self.ydl.cookiejar.filename or self._cookies_tempfile
@@ -364,7 +364,7 @@ class FFmpegFD(ExternalFD):
         url = info_dict['url']
         ffpp = FFmpegPostProcessor(downloader=self)
         if not ffpp.available:
-            self.report_error('m3u8 download detected but ffmpeg or avconv could not be found. Please install one.')
+            self.report_error('检测到m3u8下载，但找不到ffmpeg或avconv。请安装其中的一个.')
             return False
         ffpp.check_version()
 
@@ -416,7 +416,7 @@ class FFmpegFD(ExternalFD):
 
             if proxy.startswith('socks'):
                 self.report_warning(
-                    '%s does not support SOCKS proxies. Downloading is likely to fail. '
+                    '%s不支持SOCKS代理。下载可能会失败. '
                     'Consider adding --hls-prefer-native to your command.' % self.get_basename())
 
             # Since December 2015 ffmpeg supports -http_proxy option (see

@@ -295,7 +295,7 @@ class F4mFD(FragmentFD):
                 retries -= 1
 
         if not fragments_list:
-            self.report_error('Failed to update fragments')
+            self.report_error('更新碎片失败')
 
         return fragments_list
 
@@ -420,7 +420,7 @@ class F4mFD(FragmentFD):
                 if live and (err.code == 404 or err.code == 410):
                     # We didn't keep up with the live window. Continue
                     # with the next available fragment.
-                    msg = 'Fragment %d unavailable' % frag_i
+                    msg = '片段%d不可用' % frag_i
                     self.report_warning(msg)
                     fragments_list = []
                 else:
@@ -430,7 +430,7 @@ class F4mFD(FragmentFD):
                 fragments_list = self._update_live_fragments(bootstrap_url, frag_i)
                 total_frags += len(fragments_list)
                 if fragments_list and (fragments_list[0][1] > frag_i + 1):
-                    msg = 'Missed %d fragments' % (fragments_list[0][1] - (frag_i + 1))
+                    msg = '错过%d个片段' % (fragments_list[0][1] - (frag_i + 1))
                     self.report_warning(msg)
 
         self._finish_frag_download(ctx)
